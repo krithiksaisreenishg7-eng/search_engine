@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Engine</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="home-container">
+        <div class="home-content">
+            <div class="logo">
+                <h1>Search Engine</h1>
+                <p class="tagline">Find what you need, fast</p>
+            </div>
+
+            <form action="/search" method="get" class="search-form">
+                <div class="search-box">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    <input
+                        type="text"
+                        name="q"
+                        id="search-input"
+                        placeholder="Search the web..."
+                        autocomplete="off"
+                        autofocus
+                    >
+                </div>
+                <div class="search-buttons">
+                    <button type="submit" class="btn-primary">Search</button>
+                    <button type="button" class="btn-secondary" onclick="feelingLucky()">I'm Feeling Lucky</button>
+                </div>
+            </form>
+
+            <div class="stats">
+                <p>{{ stats.total_pages }} pages indexed</p>
+            </div>
+        </div>
+
+        <footer class="home-footer">
+            <p>Built with FastAPI, Python, and SQLite</p>
+        </footer>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
