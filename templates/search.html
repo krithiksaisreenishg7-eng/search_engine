@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ query }} - Search Results</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header class="search-header">
+        <div class="header-content">
+            <a href="/" class="logo-link">
+                <h2>Search Engine</h2>
+            </a>
+
+            <form action="/search" method="get" class="header-search-form">
+                <div class="header-search-box">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    <input
+                        type="text"
+                        name="q"
+                        value="{{ query }}"
+                        placeholder="Search..."
+                        autocomplete="off"
+                        autofocus
+                    >
+                    <button type="submit" class="search-submit">Search</button>
+                </div>
+            </form>
+        </div>
+    </header>
+
+    <main class="results-container">
+        {% if query %}
+            <div class="results-info">
+                <p>About {{ result_count }} results</p>
+            </div>
+
+            {% if results %}
+                <div class="results-list">
+                    {% for result in results %}
+                    <div class="result-item">
+                        <div class="result-url">{{ result.url }}</div>
+                        <a href="{{ result.url }}" class="result-title">{{ result.title }}</a>
+                        <div class="result-snippet">{{ result.snippet }}</div>
+                        <div class="result-meta">
+                            <span class="score-badge">Score: {{ "%.2f"|format(result.score) }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="no-results">
+                    <h3>No results found</h3>
+                    <p>Try different keywords or check your spelling</p>
+                    <div class="suggestions">
+                        <h4>Suggestions:</h4>
+                        <ul>
+                            <li>Make sure all words are spelled correctly</li>
+                            <li>Try different keywords</li>
+                            <li>Try more general keywords</li>
+                            <li>Try fewer keywords</li>
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="no-query">
+                <p>Enter a search query to get started</p>
+            </div>
+        {% endif %}
+    </main>
+
+    <footer class="results-footer">
+        <p>{{ stats.total_pages }} pages indexed | Built with FastAPI</p>
+    </footer>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
